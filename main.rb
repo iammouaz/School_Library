@@ -98,7 +98,7 @@ class App
 
   def create_teacher
     print 'Age: '
-    age = gets
+    age = gets.chomp
     print 'Name: '
     name = gets.chomp
     print 'Specialization: '
@@ -115,6 +115,6 @@ class App
     title = gets.chomp
     print 'Author: '
     author = gets.chomp
-    @books(Book.new(title, author))
+    @books.push(Book.new(title, author))
     puts 'Book created successfully'
   end
