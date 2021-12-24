@@ -20,4 +20,17 @@ class App
     }
   end
 
-  
+  def run
+    puts 'Welcome to School Library App!'
+
+    loop do
+      puts ''
+      puts 'Please choose an option by eterin a number:'
+      @options.each { |key, value| puts "#{key}) #{value}" }
+      option = gets.chomp
+      break if option == '7'
+
+      menu_choice option
+    end
+  end
+
