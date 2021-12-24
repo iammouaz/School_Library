@@ -25,6 +25,10 @@ class Person
   def validate_name
     @name = @corrector.correct_name(@name)
   end
+  
+  def to_s
+    "Name: #{@name}, Age: #{@age}, ID: #{@id}"
+  end
 
   def rent_book(date, book)
     Rental.new(date, book, self)
