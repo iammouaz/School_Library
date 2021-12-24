@@ -71,3 +71,50 @@ class App
     end
   end
 
+  def create_person
+    print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
+    option = gets.chomp
+    case option
+    when '1'
+      create_student
+    when '2'
+      create_teacher
+    else
+      puts 'Not a valid option'
+      return
+    end
+    puts 'Person created successfully'
+  end
+
+  def create_student
+    print 'Age: '
+    age = gets.chomp
+    print 'Name: '
+    name = gets.chomp
+    print 'Has parent permission? [Y/N]: '
+    pp = gets.chomp
+    @people.push(Student.new(name: name, age: age, parent_permission: translate_answer(pp.downcase)))
+  end
+
+  def create_teacher
+    print 'Age: '
+    age = gets
+    print 'Name: '
+    name = gets.chomp
+    print 'Specialization: '
+    specialization = gets.chomp
+    @people.push(Teacher.new(name: name, age: age, specialization: specialization))
+  end
+
+  def translate_answer(ans)
+    %w[yes y].include?(ans)
+  end
+
+  def create_book
+    print 'Title: '
+    title = gets.chomp
+    print 'Author: '
+    author = gets.chomp
+    @books(Book.new(title, author))
+    puts 'Book created successfully'
+  end
