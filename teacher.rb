@@ -9,7 +9,7 @@ class Teacher < Person
   def can_use_services
     true
   end
-  
+
   def to_s
     "[Teacher] #{super}"
   end

@@ -25,7 +25,7 @@ class Person
   def validate_name
     @name = @corrector.correct_name(@name)
   end
-  
+
   def to_s
     "Name: #{@name}, Age: #{@age}, ID: #{@id}"
   end
