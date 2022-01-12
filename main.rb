@@ -11,7 +11,7 @@ class App
       '6' => 'List all rentals for a given person',
       '7' => 'Exit'
     }
-    @handle_menu_choices = HandleMenuChoice.new
+    @menu_choices = MenuChoice.new
   end
 
   def run
@@ -31,17 +31,17 @@ class App
   def menu_choice(option)
     case option
     when '1'
-      @handle_menu_choices.list_books
+      @menu_choices.list_books
     when '2'
-      @handle_menu_choices.list_people
+      @menu_choices.list_people
     when '3'
-      @handle_menu_choices.create_person
+      @menu_choices.create_person
     when '4'
-      @handle_menu_choices.create_book
+      @menu_choices.create_book
     when '5'
-      @handle_menu_choices.create_rental
+      @menu_choices.create_rental
     when '6'
-      @handle_menu_choices.list_rentals
+      @menu_choices.list_rentals
     else
       puts 'Not a valid option'
     end
