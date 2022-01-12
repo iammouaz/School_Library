@@ -1,15 +1,7 @@
-require './student'
-require './teacher'
-require './classroom'
-require './book'
-require './rental'
 require './choice'
 
 class App
   def initialize
-    @people = []
-    @books = []
-    @rentals = []
     @options = {
       '1' => 'List all books',
       '2' => 'List all people',
@@ -19,7 +11,7 @@ class App
       '6' => 'List all rentals for a given person',
       '7' => 'Exit'
     }
-    @handle_menu = Choice.new
+    @handle_menu_choices = HandleMenuChoice.new
   end
 
   def run
@@ -39,24 +31,21 @@ class App
   def menu_choice(option)
     case option
     when '1'
-      @handle_menu.list_books
+      @handle_menu_choices.list_books
     when '2'
-      @handle_menu.list_people
+      @handle_menu_choices.list_people
     when '3'
-      @handle_menu.create_person
+      @handle_menu_choices.create_person
     when '4'
-      @handle_menu.create_book
+      @handle_menu_choices.create_book
     when '5'
-      @handle_menu.create_rental
+      @handle_menu_choices.create_rental
     when '6'
-      @handle_menu.list_rentals
+      @handle_menu_choices.list_rentals
     else
       puts 'Not a valid option'
     end
-  
   end
-
-  
 end
 
 def main
