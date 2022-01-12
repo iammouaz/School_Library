@@ -3,7 +3,7 @@ require './teacher'
 require './book'
 require './rental'
 
-class HandleMenuChoice
+class MenuChoice
   def initialize
     @people = HandlePerson.new
     @books = HandleBooks.new
