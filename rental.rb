@@ -22,6 +22,6 @@ class Rental
     'book' => @book.to_json,
     'person' => @person.to_json
   }
-end
+  end
 
 end
