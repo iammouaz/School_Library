@@ -30,6 +30,14 @@ class Person
     "Name: #{@name}, Age: #{@age}, ID: #{@id}"
   end
 
+  def to_json(options={})
+  {
+    'id' => @id,
+    'age' => @age,
+    'name' => @name
+  }
+  end
+
   def rent_book(date, book)
     Rental.new(date, book, self)
   end
