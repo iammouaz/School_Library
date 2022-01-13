@@ -15,7 +15,7 @@ class Teacher < Person
     "[Teacher] #{super}"
   end
 
-  def to_json
+  def to_json(*_args)
     {
       'id' => @id,
       'name' => @name,

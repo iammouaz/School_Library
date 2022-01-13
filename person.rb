@@ -30,12 +30,12 @@ class Person
     "Name: #{@name}, Age: #{@age}, ID: #{@id}"
   end
 
-  def to_json(options={})
-  {
-    'id' => @id,
-    'age' => @age,
-    'name' => @name
-  }
+  def to_json(_options = {})
+    {
+      'id' => @id,
+      'age' => @age,
+      'name' => @name
+    }
   end
 
   def rent_book(date, book)

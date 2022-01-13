@@ -1,4 +1,7 @@
 require './choice'
+require './data'
+require './book'
+require './rental'
 
 class App
   def initialize

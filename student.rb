@@ -5,8 +5,8 @@ class Student < Person
   attr_reader :classroom
 
   def initialize(age:, name: 'Unknown', parent_permission: true, classroom: 'None')
-    super(age: age, name: name, 
-    parent_permission: parent_permission)
+    super(age: age, name: name,
+          parent_permission: parent_permission)
     @classroom = classroom
   end
 
@@ -23,7 +23,7 @@ class Student < Person
     "[Student] #{super}"
   end
 
-  def to_json
+  def to_json(*_args)
     {
       'id' => @id,
       'name' => @name,
