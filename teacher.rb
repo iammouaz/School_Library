@@ -1,4 +1,5 @@
 require_relative 'person'
+require 'json'
 
 class Teacher < Person
   def initialize(age:, specialization:, name: 'Unknown', parent_permission: true)
@@ -12,5 +13,14 @@ class Teacher < Person
 
   def to_s
     "[Teacher] #{super}"
+  end
+
+  def to_json
+    {
+      'id' => @id,
+      'name' => @name,
+      'age' => @age,
+      'specialization' => @specialization
+    }
   end
 end
