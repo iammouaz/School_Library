@@ -1,3 +1,4 @@
+require 'securerandom'
 require_relative 'corrector'
 require './rental'
 
@@ -5,8 +6,8 @@ class Person
   attr_accessor :name, :age, :rentals, :parent_permission
   attr_reader :id
 
-  def initialize(age:, name: 'Unknown', parent_permission: true)
-    @id = Random.rand(1..1000)
+  def initialize(id:, age:, name: 'Unknown', parent_permission: true)
+    @id = id || SecureRandom.uuid
     @name = name
     @age = age
     @parent_permission = parent_permission
@@ -14,15 +15,15 @@ class Person
     @rentals = []
   end
 
+  def rent_book(date, book)
+    Rental.new(date, book, self)
+  end
+
   def can_use_services?
     of_age? || @parent_permission
   end
 
-  def of_age?
-    @age >= 18
-  end
-
-  def validate_name
+  def validate_name?
     @name = @corrector.correct_name(@name)
   end
 
@@ -38,7 +39,9 @@ class Person
     }
   end
 
-  def rent_book(date, book)
-    Rental.new(date, book, self)
+  private
+
+  def of_age?
+    @age >= 18
   end
 end

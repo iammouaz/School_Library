@@ -1,7 +1,8 @@
 require './choice'
-require './data'
 require './book'
 require './rental'
+require './data'
+require 'json'
 
 class App
   def initialize
@@ -12,9 +13,9 @@ class App
       '4' => 'Create a book',
       '5' => 'Create a rental',
       '6' => 'List all rentals for a given person',
-      '7' => 'Exit'
+      '7' => 'Save and Exit'
     }
-    @menu_choices = MenuChoice.new
+    @handle_menu_choices = HandleMenuChoice.new
   end
 
   def run
@@ -25,7 +26,10 @@ class App
       puts 'Please choose an option by eterin a number:'
       @options.each { |key, value| puts "#{key}) #{value}" }
       option = gets.chomp
-      break if option == '7'
+      if option == '7'
+        @handle_menu_choices.saving_exit
+        break
+      end
 
       menu_choice option
     end
@@ -34,17 +38,17 @@ class App
   def menu_choice(option)
     case option
     when '1'
-      @menu_choices.list_books
+      @handle_menu_choices.list_books
     when '2'
-      @menu_choices.list_people
+      @handle_menu_choices.list_people
     when '3'
-      @menu_choices.create_person
+      @handle_menu_choices.create_person
     when '4'
-      @menu_choices.create_book
+      @handle_menu_choices.create_book
     when '5'
-      @menu_choices.create_rental
+      @handle_menu_choices.create_rental
     when '6'
-      @menu_choices.list_rentals
+      @handle_menu_choices.list_rentals
     else
       puts 'Not a valid option'
     end
