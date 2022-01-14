@@ -17,8 +17,8 @@ class HandleMenuChoice
 
   def saving_exit
     puts 'Saving'
-    @persistor = Data.new
-    @persistor.save(people: @people.people, books: @books.books, rentals: @rentals.rentals)
+    @data = Data.new
+    @data.save(people: @people.people, books: @books.books, rentals: @rentals.rentals)
   end
 
   def list_books
