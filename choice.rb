@@ -3,7 +3,7 @@ require './teacher'
 require './book'
 require './rental'
 require 'json'
-require './data'
+require './save'
 
 class HandleMenuChoice
   def initialize
@@ -17,8 +17,8 @@ class HandleMenuChoice
 
   def saving_exit
     puts 'Saving'
-    @data = Data.new
-    @data.save(people: @people.people, books: @books.books, rentals: @rentals.rentals)
+    @save = Save.new
+    @save.save(people: @people.people, books: @books.books, rentals: @rentals.rentals)
   end
 
   def list_books
