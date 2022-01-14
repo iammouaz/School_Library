@@ -11,8 +11,9 @@ Ruby >= 3.0.0
    git clone https://github.com/iammouaz/School_Library.git
    ```
 - Go to the cloned directory with `cd School_Library`
+- Run command `bundle install`
 - With Ruby installed in your environment, you can just run `ruby main.rb` to see the result
-
+-  You can start testing by the command : `bundle exec rspec`
 ## Authors
 
 👤 **Mouaz Molkey**
