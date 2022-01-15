@@ -2,12 +2,23 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
+require 'json'
+require './save'
 
-class MenuChoice
+class HandleMenuChoice
   def initialize
     @people = HandlePerson.new
+    @people.read_people_json
     @books = HandleBooks.new
+    @books.read_books_json
     @rentals = HandleRentals.new
+    @rentals.read_rentals_json(@people.people, @books.books)
+  end
+
+  def saving_exit
+    puts 'Saving'
+    @save = Save.new
+    @save.save(people: @people.people, books: @books.books, rentals: @rentals.rentals)
   end
 
   def list_books
@@ -36,11 +47,11 @@ class MenuChoice
     when '1'
       print 'Has parent permission? [Y/N]: '
       pp = gets.chomp
-      @people.create_student(age, name, pp)
+      @people.create_student(nil, age, name, pp)
     when '2'
       print 'Specialization: '
       specialization = gets.chomp
-      @people.create_teacher(age, name, specialization)
+      @people.create_teacher(nil, age, name, specialization)
     else
       puts 'Not a valid option'
       return
@@ -74,20 +85,37 @@ class MenuChoice
 end
 
 class HandlePerson
+  attr_reader :people
+
   def initialize
     @people = []
+  end
+
+  def read_people_json
+    file = 'people.json'
+    if File.exist? file
+      JSON.parse(File.read(file)).map do |p|
+        if p['specialization'].nil?
+          create_student(p['id'], p['age'], p['name'], p['pp'].to_s)
+        else
+          create_teacher(p['id'], p['age'], p['name'], p['specialization'])
+        end
+      end
+    else
+      []
+    end
   end
 
   def translate_answer(ans)
     %w[yes y].include?(ans)
   end
 
-  def create_student(age, name, pp)
-    @people.push(Student.new(name: name, age: age, parent_permission: translate_answer(pp.downcase)))
+  def create_student(id, age, name, pp)
+    @people.push(Student.new(id: id, name: name, age: age, parent_permission: translate_answer(pp.downcase)))
   end
 
-  def create_teacher(age, name, specialization)
-    @people.push(Teacher.new(name: name, age: age, specialization: specialization))
+  def create_teacher(id, age, name, specialization)
+    @people.push(Teacher.new(id: id, name: name, age: age, specialization: specialization))
   end
 
   def list_people
@@ -116,8 +144,21 @@ class HandlePerson
 end
 
 class HandleBooks
+  attr_reader :books
+
   def initialize
     @books = []
+  end
+
+  def read_books_json
+    file = 'books.json'
+    if File.exist? file
+      JSON.parse(File.read(file)).map do |b|
+        add_book(b['title'], b['author'])
+      end
+    else
+      []
+    end
   end
 
   def add_book(title, author)
@@ -146,8 +187,23 @@ class HandleBooks
 end
 
 class HandleRentals
+  attr_reader :rentals
+
   def initialize
     @rentals = []
+  end
+
+  def read_rentals_json(people = [], books = [])
+    file = 'rentals.json'
+    if File.exist? file
+      JSON.parse(File.read(file)).map do |r|
+        person = people.find { |p| p.id == r['person']['id'] }
+        book = books.find { |b| b.title == r['book']['title'] }
+        add_rental(r['date'], book, person)
+      end
+    else
+      []
+    end
   end
 
   def add_rental(date, book, person)

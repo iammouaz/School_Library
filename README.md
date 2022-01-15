@@ -1,5 +1,6 @@
 # School Library 
 
+Ruby project that simulates a School Library which people, books, and rentals can be added.
 ## Prerequisites
 
 Ruby >= 3.0.0
